@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Untukmu ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+
+            font-family: "DM Sans", Arial, sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(255, 80, 150, .45),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(255, 0, 100, .35),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #4b002d,
+                    #ad0055,
+                    #650038
+                );
+
+            overflow: hidden;
+        }
+
+
+        /* =================================
+           FLOATING BACKGROUND
+        ================================= */
+
+        .heart {
+            position: fixed;
+
+            color: #ff5c9a;
+
+            font-size: 20px;
+
+            opacity: .7;
+
+            pointer-events: none;
+
+            animation:
+                float 6s linear infinite;
+        }
+
+
+        @keyframes float {
+
+            0% {
+                transform:
+                    translateY(110vh)
+                    rotate(0deg);
+
+                opacity: 0;
+            }
+
+            15% {
+                opacity: .8;
+            }
+
+            100% {
+                transform:
+                    translateY(-20vh)
+                    rotate(360deg);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* =================================
+           LOGIN CARD
+        ================================= */
+
+        .login-card {
+
+            width: min(420px, 100%);
+
+            padding: 42px 35px;
+
+            text-align: center;
+
+            border:
+                1px solid
+                rgba(255,255,255,.25);
+
+            border-radius: 30px;
+
+            background:
+                rgba(255,255,255,.12);
+
+            backdrop-filter:
+                blur(18px);
+
+            box-shadow:
+                0 25px 60px
+                rgba(0,0,0,.35),
+
+                0 0 35px
+                rgba(255,50,140,.3);
+
+            animation:
+                cardIn .8s
+                cubic-bezier(.17,.67,.35,1.3);
+        }
+
+
+        @keyframes cardIn {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(40px)
+                    scale(.9);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* =================================
+           HEART
+        ================================= */
+
+        .main-heart {
+
+            font-size: 70px;
+
+            display: block;
+
+            margin-bottom: 10px;
+
+            animation:
+                heartbeat 1.3s
+                ease-in-out infinite;
+
+            filter:
+                drop-shadow(
+                    0 0 15px
+                    #ff4f98
+                );
+        }
+
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+
+        /* =================================
+           TITLE
+        ================================= */
+
+        h1 {
+
+            color: white;
+
+            font-size: 27px;
+
+            margin-bottom: 8px;
+
+            text-shadow:
+                0 0 10px
+                rgba(255,255,255,.8),
+
+                0 0 25px
+                rgba(255,80,160,.7);
+        }
+
+
+        .subtitle {
+
+            color:
+                rgba(255,255,255,.8);
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =================================
+           INPUT
+        ================================= */
+
+        .input-box {
+
+            text-align: left;
+
+            margin-bottom: 18px;
+        }
+
+
+        .input-box label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: white;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 14px 17px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.3);
+
+            border-radius: 14px;
+
+            outline: none;
+
+            background:
+                rgba(255,255,255,.12);
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            transition: .3s;
+        }
+
+
+        input::placeholder {
+
+            color:
+                rgba(255,255,255,.55);
+        }
+
+
+        input:focus {
+
+            border-color:
+                #ff5c9a;
+
+            box-shadow:
+                0 0 15px
+                rgba(255,60,140,.35);
+
+            background:
+                rgba(255,255,255,.17);
+        }
+
+
+        /* =================================
+           BUTTON
+        ================================= */
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff397d,
+                    #ec075f
+                );
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 25px
+                rgba(255,30,120,.5);
+
+            transition: .3s;
+        }
+
+
+        button:hover {
+
+            transform:
+                translateY(-3px)
+                scale(1.02);
+
+            box-shadow:
+                0 10px 30px
+                rgba(255,30,120,.75);
+        }
+
+
+        button:active {
+
+            transform:
+                scale(.97);
+        }
+
+
+        .error {
+
+            display: none;
+
+            margin-top: 12px;
+
+            color: #ffb3cc;
+
+            font-size: 12px;
+        }
+
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 450px) {
+
+            .login-card {
+                padding: 35px 25px;
+            }
+
+            .main-heart {
+                font-size: 60px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         BACKGROUND HEARTS
+    ================================= -->
+
+    <span class="heart" style="left:8%; animation-delay:0s;">♥</span>
+    <span class="heart" style="left:20%; animation-delay:2s;">♥</span>
+    <span class="heart" style="left:35%; animation-delay:4s;">♥</span>
+    <span class="heart" style="left:50%; animation-delay:1s;">♥</span>
+    <span class="heart" style="left:65%; animation-delay:3s;">♥</span>
+    <span class="heart" style="left:80%; animation-delay:5s;">♥</span>
+    <span class="heart" style="left:92%; animation-delay:2s;">♥</span>
+
+
+    <!-- =================================
+         LOGIN
+    ================================= -->
+
+    <div class="login-card">
+
+        <span class="main-heart">
+            ❤️
+        </span>
+
+
+        <h1>
+            Haii kamu 💕
+        </h1>
+
+
+        <div class="subtitle">
+            Sebelum masuk, boleh kasih tahu
+            namamu dulu? ❤️
+        </div>
+
+
+        <form id="loginForm">
+
+            <div class="input-box">
+
+                <label for="nama">
+                    Nama kamu
+                </label>
+
+                <input
+                    type="text"
+                    id="nama"
+                    placeholder="Masukkan nama kamu..."
+                    autocomplete="off"
+                    maxlength="30"
+                >
+
+            </div>
+
+
+            <button type="submit">
+                Masuk ❤️
+            </button>
+
+
+            <div
+                class="error"
+                id="error"
+            >
+                Isi nama kamu dulu yaa 💕
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================= -->
+
+    <script>
+
+        const form =
+            document.getElementById(
+                "loginForm"
+            );
+
+        const namaInput =
+            document.getElementById(
+                "nama"
+            );
+
+        const error =
+            document.getElementById(
+                "error"
+            );
+
+
+        form.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const nama =
+                    namaInput.value.trim();
+
+
+                // =========================
+                // CEK NAMA
+                // =========================
+
+                if (!nama) {
+
+                    error.style.display =
+                        "block";
+
+                    namaInput.focus();
+
+                    return;
+
+                }
+
+
+                // =========================
+                // SIMPAN NAMA
+                // =========================
+
+                localStorage.setItem(
+                    "namaPacar",
+                    nama
+                );
+
+
+                // =========================
+                // MASUK KE HALAMAN UTAMA
+                // =========================
+
+                window.location.href =
+                    "home.html";
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
