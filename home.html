@@ -1,0 +1,801 @@
+    <!DOCTYPE html>
+    <html lang="id">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>For You ❤️</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" href="css.css">
+
+        <style>
+            .popup {
+                position: fixed;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                background:
+                    radial-gradient(
+                        circle at 50% 50%,
+                        rgba(255, 45, 130, .15),
+                        transparent 45%
+                    ),
+                    rgba(15, 0, 10, .78);
+                backdrop-filter: blur(10px);
+                opacity: 0;
+                visibility: hidden;
+                transition: .4s ease;
+                z-index: 9999;
+            }
+
+            .popup.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .popup-content {
+                position: relative;
+                width: min(440px, 100%);
+                padding: 42px 35px 32px;
+                text-align: center;
+                border-radius: 32px;
+                background:
+                    linear-gradient(
+                        145deg,
+                        rgba(100, 0, 55, .96),
+                        rgba(35, 0, 25, .98)
+                    );
+                border: 1px solid rgba(255, 140, 190, .25);
+                box-shadow:
+                    0 35px 100px rgba(0, 0, 0, .65),
+                    0 0 50px rgba(255, 40, 140, .18),
+                    inset 0 1px 0 rgba(255,255,255,.12);
+                transform: translateY(30px) scale(.88);
+                transition: .5s cubic-bezier(.17,.67,.35,1.25);
+                overflow: hidden;
+                z-index: 10;
+            }
+
+            .popup.active .popup-content {
+                transform: translateY(0) scale(1);
+            }
+
+            .popup-content::before {
+                content: "";
+                position: absolute;
+                width: 180px;
+                height: 180px;
+                top: -90px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(255, 50, 140, .22);
+                border-radius: 50%;
+                filter: blur(45px);
+                pointer-events: none;
+            }
+
+            .popup-content::after {
+                content: "♡  ✦  ♡";
+                position: absolute;
+                top: 18px;
+                left: 0;
+                right: 0;
+                color: rgba(255, 150, 195, .35);
+                font-size: 12px;
+                letter-spacing: 8px;
+                pointer-events: none;
+            }
+
+            .popup .close {
+                position: absolute;
+                top: 15px;
+                right: 17px;
+                width: 35px;
+                height: 35px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                border: 1px solid rgba(255,255,255,.15);
+                background: rgba(255,255,255,.08);
+                color: rgba(255,255,255,.75);
+                font-size: 23px;
+                line-height: 1;
+                box-shadow: none;
+                transition: .3s;
+                z-index: 5;
+            }
+
+            .popup .close:hover {
+                transform: rotate(90deg);
+                background: rgba(255,80,150,.2);
+                color: white;
+            }
+
+            .big-heart {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 90px;
+                height: 90px;
+                margin: 5px auto 15px;
+                font-size: 50px;
+                border-radius: 50%;
+                background:
+                    radial-gradient(
+                        circle,
+                        rgba(255,80,160,.22),
+                        rgba(255,80,160,.05)
+                    );
+                box-shadow:
+                    0 0 30px rgba(255,50,140,.25);
+                animation:
+                    popupHeart 1.8s ease-in-out infinite;
+            }
+
+            @keyframes popupHeart {
+                0%, 100% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.08);
+                }
+            }
+
+            .popup-content h2 {
+                margin: 0;
+                color: white;
+                font-family: "Dancing Script", cursive;
+                font-size: 36px;
+                font-weight: 700;
+                text-shadow:
+                    0 0 12px rgba(255,255,255,.35),
+                    0 0 25px rgba(255,60,150,.5);
+            }
+
+            .popup-text {
+                margin: 12px auto 25px;
+                max-width: 330px;
+                color: rgba(255,255,255,.68);
+                font-size: 13px;
+                line-height: 1.8;
+            }
+
+            .memory-preview {
+                position: relative;
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 16px 18px;
+                margin: 0 auto 20px;
+                width: 100%;
+                text-align: left;
+                border-radius: 20px;
+                background:
+                    linear-gradient(
+                        135deg,
+                        rgba(255,100,165,.13),
+                        rgba(255,255,255,.035)
+                    );
+                border: 1px solid rgba(255,130,180,.16);
+                box-shadow:
+                    inset 0 1px 0 rgba(255,255,255,.06);
+                transition: .3s;
+            }
+
+            .memory-preview:hover {
+                transform: translateY(-2px);
+                border-color: rgba(255,130,180,.3);
+                background: rgba(255,80,150,.12);
+            }
+
+            .memory-preview > span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 48px;
+                height: 48px;
+                flex-shrink: 0;
+                border-radius: 14px;
+                background: rgba(255,80,150,.12);
+                font-size: 24px;
+                box-shadow:
+                    0 0 18px rgba(255,50,140,.15);
+            }
+
+            .memory-preview div {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .memory-preview strong {
+                color: white;
+                font-size: 14px;
+            }
+
+            .memory-preview small {
+                color: rgba(255,255,255,.48);
+                font-size: 11px;
+            }
+
+            .memory-btn {
+                position: relative;
+                width: 100%;
+                padding: 15px 20px;
+                border: 1px solid rgba(255,180,210,.2);
+                border-radius: 30px;
+                background:
+                    linear-gradient(
+                        135deg,
+                        #ff5798,
+                        #e80060
+                    );
+                color: white;
+                font-family: inherit;
+                font-size: 13px;
+                font-weight: 700;
+                cursor: pointer;
+                box-shadow:
+                    0 10px 30px rgba(255,30,120,.35);
+                transition: .3s;
+                overflow: hidden;
+            }
+
+            .memory-btn::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 70%;
+                height: 100%;
+                background:
+                    linear-gradient(
+                        90deg,
+                        transparent,
+                        rgba(255,255,255,.25),
+                        transparent
+                    );
+                transform: skewX(-20deg);
+                transition: .6s;
+            }
+
+            .memory-btn:hover::before {
+                left: 130%;
+            }
+
+            .memory-btn:hover {
+                transform: translateY(-3px);
+                box-shadow:
+                    0 15px 35px rgba(255,30,120,.5);
+            }
+
+            .memory-btn:active {
+                transform: scale(.97);
+            }
+
+            .popup-content h3 {
+                margin-top: 20px;
+                color: rgba(255,150,195,.75);
+                font-family: "Dancing Script", cursive;
+                font-size: 20px;
+                font-weight: 500;
+            }
+
+            .popup-photo {
+                position: absolute;
+                z-index: 5;
+                opacity: 0;
+                pointer-events: none;
+                transition:
+                    opacity .7s ease,
+                    transform .7s cubic-bezier(.2,.8,.2,1);
+            }
+
+            .popup.active .popup-photo {
+                opacity: 1;
+            }
+
+            .popup-photo img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .polaroid {
+                width: 125px;
+                padding: 8px 8px 30px;
+                background: white;
+                border-radius: 4px;
+                box-shadow:
+                    0 15px 35px rgba(0,0,0,.35);
+            }
+
+            .polaroid img {
+                width: 109px;
+                height: 125px;
+            }
+
+            .polaroid span {
+                position: absolute;
+                bottom: 7px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                color: #6e4053;
+                font-family: "Dancing Script", cursive;
+                font-size: 14px;
+            }
+
+            .heart-photo {
+                width: 135px;
+                height: 135px;
+                background: #ff72a7;
+                clip-path: polygon(
+                    50% 100%,
+                    43% 93%,
+                    35% 86%,
+                    25% 76%,
+                    15% 65%,
+                    7% 54%,
+                    3% 43%,
+                    4% 32%,
+                    10% 22%,
+                    20% 15%,
+                    31% 13%,
+                    40% 17%,
+                    50% 27%,
+                    60% 17%,
+                    69% 13%,
+                    80% 15%,
+                    90% 22%,
+                    96% 32%,
+                    97% 43%,
+                    93% 54%,
+                    85% 65%,
+                    75% 76%,
+                    65% 86%,
+                    57% 93%
+                );
+                padding: 5px;
+                box-shadow:
+                    0 15px 35px rgba(0,0,0,.3);
+            }
+
+            .heart-photo img {
+                width: 125px;
+                height: 125px;
+                clip-path: polygon(
+                    50% 100%,
+                    43% 93%,
+                    35% 86%,
+                    25% 76%,
+                    15% 65%,
+                    7% 54%,
+                    3% 43%,
+                    4% 32%,
+                    10% 22%,
+                    20% 15%,
+                    31% 13%,
+                    40% 17%,
+                    50% 27%,
+                    60% 17%,
+                    69% 13%,
+                    80% 15%,
+                    90% 22%,
+                    96% 32%,
+                    97% 43%,
+                    93% 54%,
+                    85% 65%,
+                    75% 76%,
+                    65% 86%,
+                    57% 93%
+                );
+            }
+
+            .photo-left-1 {
+                left: calc(50% - 355px);
+                top: 18%;
+                transform:
+                    rotate(-10deg)
+                    translateX(-30px);
+            }
+
+            .photo-left-2 {
+                left: calc(50% - 365px);
+                top: 43%;
+                transform:
+                    rotate(-8deg)
+                    translateX(-35px);
+            }
+
+            .photo-left-3 {
+                left: calc(50% - 345px);
+                bottom: 12%;
+                transform:
+                    rotate(7deg)
+                    translateX(-25px);
+            }
+
+            .photo-right-1 {
+                right: calc(50% - 365px);
+                top: 16%;
+                transform:
+                    rotate(8deg)
+                    translateX(30px);
+            }
+
+            .photo-right-2 {
+                right: calc(50% - 350px);
+                top: 43%;
+                transform:
+                    rotate(9deg)
+                    translateX(35px);
+            }
+
+            .photo-right-3 {
+                right: calc(50% - 365px);
+                bottom: 10%;
+                transform:
+                    rotate(-7deg)
+                    translateX(30px);
+            }
+
+            .popup.active .photo-left-1 {
+                transform:
+                    rotate(-10deg)
+                    translateX(0)
+                    translateY(-5px);
+            }
+
+            .popup.active .photo-left-2 {
+                transform:
+                    rotate(-8deg)
+                    translateX(0)
+                    translateY(5px);
+            }
+
+            .popup.active .photo-left-3 {
+                transform:
+                    rotate(7deg)
+                    translateX(0)
+                    translateY(-5px);
+            }
+
+            .popup.active .photo-right-1 {
+                transform:
+                    rotate(8deg)
+                    translateX(0)
+                    translateY(-5px);
+            }
+
+            .popup.active .photo-right-2 {
+                transform:
+                    rotate(9deg)
+                    translateX(0)
+                    translateY(5px);
+            }
+
+            .popup.active .photo-right-3 {
+                transform:
+                    rotate(-7deg)
+                    translateX(0)
+                    translateY(-5px);
+            }
+
+     @media (max-width: 480px) {
+    .popup-photo {
+        display: block;
+        z-index: 11;
+    }
+
+    .popup-content {
+        width: 78vw;
+        max-width: 310px;
+        min-height: auto;
+        padding: 42px 18px 24px;
+    }
+
+    .popup-content h2 {
+        font-size: 28px;
+    }
+
+    .popup-content h2 strong {
+        font-size: 36px;
+    }
+
+    .popup-text {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .polaroid {
+        width: 68px;
+        padding: 5px 5px 18px;
+        border-radius: 3px;
+    }
+
+    .polaroid img {
+        width: 58px;
+        height: 65px;
+    }
+
+    .polaroid span {
+        font-size: 7px;
+    }
+
+    .heart-photo {
+        width: 72px;
+        height: 72px;
+        padding: 3px;
+    }
+
+    .heart-photo img {
+        width: 66px;
+        height: 66px;
+    }
+
+    .photo-left-1 {
+    left: 18px;
+    top: 12%;
+    transform: rotate(-10deg);
+        }
+
+        .photo-left-2 {
+            left: 14px;
+            top: 43%;
+            transform: rotate(-8deg);
+        }
+
+        .photo-left-3 {
+            left: 18px;
+            bottom: 12%;
+            transform: rotate(8deg);
+        }
+
+        .photo-right-1 {
+            right: 18px;
+            top: 12%;
+            transform: rotate(10deg);
+        }
+
+        .photo-right-2 {
+            right: 14px;
+            top: 43%;
+            transform: rotate(8deg);
+        }
+
+        .photo-right-3 {
+            right: 18px;
+            bottom: 12%;
+            transform: rotate(-8deg);
+        }
+     }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="background-hearts"></div>
+        <div class="sparkles"></div>
+
+        <header>
+            <button class="music-btn" onclick="toggleMusic()">
+                ♫ <span></span>
+            </button>
+
+            <div class="logo">
+                <h1>Daffa Rozan</h1>
+                <div class="logo-line">
+                    <i></i>
+                    <i></i>
+                </div>
+            </div>
+
+            <button class="heart-btn">♥</button>
+        </header>
+
+        <main>
+
+            <section class="card">
+
+                <div class="text-content">
+
+                    <div class="line"></div>
+
+                    <h2>
+                        for Putri 
+                        <span>💗</span>
+                    </h2>
+
+                    <p>
+                        Semoga panjang umur, sehat selalu,
+                        cantik terus, lucu terus, dan bahagia selalu.
+
+                        Semoga di tahun ini kamu bisa menemukan
+                        jalan terbaik buat hidupmu,
+                        Jangan pacaran mulu luu dasar yeuu
+                        Selamat ulang tahun yaa, Yaya! 🎂❤️
+                    </p>
+
+                </div>
+
+                <div class="tree-area">
+
+                    <div class="tree">
+
+                        <div class="trunk"></div>
+
+                        <div class="love-leaves"></div>
+
+                    </div>
+
+                </div>
+
+                <div class="countdown">
+
+                    <p>Happy Birthday</p>
+
+                    <div class="time-boxes">
+
+                        <div class="time-box">
+                            <strong id="days">00</strong>
+                            <span>DAY</span>
+                        </div>
+
+                        <div class="time-box">
+                            <strong id="hours">00</strong>
+                            <span>HOURS</span>
+                        </div>
+
+                        <div class="time-box">
+                            <strong id="minutes">00</strong>
+                            <span>MIN.</span>
+                        </div>
+
+                        <div class="time-box">
+                            <strong id="seconds">00</strong>
+                            <span>SEC.</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="bottom-line">
+                    <span>♥</span>
+                </div>
+
+            </section>
+
+            <section class="message-section">
+
+                <div class="message-box">
+
+                    <p>
+                        Penasaran yaa sama isinyaa coba buka ini deh
+                    </p>
+
+                </div>
+
+                <button class="gift-btn" onclick="openGift()">
+                    💌 &nbsp; Kartu ucapan
+                </button>
+
+                <div class="down-arrow">
+                    ⌄
+                </div>
+
+                <p class="footer-text">
+                    HADIAH DARI GW 💗
+                </p>
+
+            </section>
+
+        </main>
+
+        <div class="popup" id="popup">
+
+            <div class="popup-photo polaroid photo-left-1">
+                <img src="poto1.jpeg">
+                <span>memory 💕</span>
+            </div>
+
+            <div class="popup-photo polaroid photo-left-2">
+                <img src="poto3.jpeg">
+                <span>our story 💗</span>
+            </div>
+
+            <div class="popup-photo heart-photo photo-left-3">
+                <img src="poto2.jpeg">
+            </div>
+
+            <div class="popup-photo polaroid photo-right-1">
+                <img src="poto4.jpeg">
+                <span>sweet moment 💕</span>
+            </div>
+
+            <div class="popup-photo heart-photo photo-right-2">
+                <img src="poto5.jpeg">
+            </div>
+
+            <div class="popup-photo polaroid photo-right-3">
+                <img src="poto6.jpeg">
+                <span>keep strong 💗</span>
+            </div>
+
+            <div class="popup-content">
+
+                <button class="close" onclick="closeGift()">×</button>
+
+                <div class="big-heart">
+                    💗
+                </div>
+
+                <h2>Happy Birthday! 🎂</h2>
+
+               <p class="popup-text">
+                    Udah tambah tua aja nih bocil <br>
+                    Gw siapin sedikit sesuatu buat lu.
+                    Nggak seberapa sih,
+                    <br>
+                    tapi semoga lu suka 💕
+                </p>
+
+                <div class="memory-preview">
+
+                    <span>📸</span>
+
+                    <div>
+                        <strong>Kenang-kenangan</strong>
+
+                        <small>
+                            Sedikit alur cerita duo anomali bertemu
+                        </small>
+                    </div>
+
+                </div>
+
+                <button
+                    class="memory-btn"
+                    onclick="window.location.href='kenangan.html'"
+                >
+                    💌 &nbsp; Buka isinya
+                </button>
+
+                <h3>
+                    keep strong yaya 💕
+                </h3>
+
+            </div>
+
+        </div>
+
+        <audio id="music" loop>
+            <source src="song.mp3" type="audio/mpeg">
+        </audio>
+
+        <script src="js.js"></script>
+
+        <script>
+            function openGift() {
+                document.getElementById("popup").classList.add("active");
+            }
+
+            function closeGift() {
+                document.getElementById("popup").classList.remove("active");
+            }
+        </script>
+
+    </body>
+    </html>

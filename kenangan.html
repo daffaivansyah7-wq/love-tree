@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Memories💗</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Dancing+Script:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="kenangan.css">
+</head>
+
+<body>
+
+    <!-- BACKGROUND LOVE -->
+    <div class="floating-hearts"></div>
+
+    <!-- GLOW -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <!-- HEADER -->
+    <header class="memory-header">
+
+        <div class="mini-heart">♥</div>
+
+        <h1>Awal Cerita</h1>
+
+        <p>
+            Alur cerita bertemunya dua anomali ini....
+        </p>
+
+        <div class="header-line">
+            <span>♡</span>
+            <i></i>
+            <span>♥</span>
+            <i></i>
+            <span>♡</span>
+        </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+    <main class="memory-container">
+
+        <!-- CARD 1 -->
+        <article class="memory-card">
+
+            <div class="memory-number">01</div>
+
+            <div class="memory-image">
+                <img src="foto1.jpeg" alt="Kenangan pertama">
+                <div class="image-overlay"></div>
+            </div>
+
+            <div class="memory-content">
+
+                <span class="memory-date">OUR STORY • 01</span>
+
+                <h2>Kenal</h2>
+
+                <p>
+                   Dulu kita kenal gara gara satu orang yang gw kenal pria solo,
+                   Kita dulu mabar sampe akirnya kita jadi temen mabar yang tiap malem 
+                   main tanpa tau waktu 
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 2 -->
+        <article class="memory-card reverse">
+
+            <div class="memory-number">02</div>
+
+            <div class="memory-image">
+                <img src="foto2.jpeg" alt="Kenangan bersama">
+                <div class="image-overlay"></div>
+            </div>
+
+            <div class="memory-content">
+
+                <span class="memory-date">LITTLE MOMENTS • 02</span>
+
+                <h2>Hal-hal Kecil 🌙</h2>
+
+                <p>
+                   Gw inget ketika lu cerita soal pelajaran MTK 
+                   dan lu minta ajarin,Pas itu lucu sih lu nggak nemu jawabannya dan akirnya nangis
+                   dan akhirnya gw bantu selesain soal lu itu wkwk seru banget ya
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 3 -->
+        <article class="memory-card">
+
+            <div class="memory-number">03</div>
+
+            <div class="memory-image">
+                <img src="foto3.jpeg" alt="Kenangan hari ini">
+                <div class="image-overlay"></div>
+            </div>
+
+            <div class="memory-content">
+
+                <span class="memory-date">ENDING • 03</span>
+
+                <h2>Sudah akrab</h2>
+
+                <p>
+                    Dari awalnya yang malu - malu 😭,
+                    Sekarang jadi malu - maluin wkwk..,hhh.. seneng gw punya temen yang udah ku anggep adik sendiri,
+                    Lu dengan segala cerita dan kerandoman lu itu bikin rasanya seru bgt "asal nggak nangis aja" wkwkwk
+
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- END -->
+        <section class="memory-end">
+
+            <div class="end-heart">♥</div>
+
+            <h2>That's Our Little Story</h2>
+
+            <p>
+                thank you and Happy Birthday for you 🤍
+            </p>
+
+            <button onclick="window.location.href='home.html'">
+                ← Kembali
+            </button>
+
+        </section>
+
+    </main>
+
+    <audio id="music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+    const music = document.getElementById("music");
+
+    window.addEventListener("load", () => {
+        const savedTime = localStorage.getItem("musicTime");
+
+        if (savedTime) {
+            music.currentTime = parseFloat(savedTime);
+        }
+
+        music.volume = 0.5;
+
+        music.play().catch(() => {
+            console.log("Autoplay diblokir browser.");
+        });
+    });
+    </script>
+
+    <script src="kenangan.js"></script>
+   
+
+</body>
+</html>
